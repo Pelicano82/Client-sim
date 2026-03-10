@@ -38,10 +38,12 @@ public class Card {
             check = false;
         }
 
+        if (check){
         this.cardNumber = number;
         this.cardHolder = holder;
         this.securityCode = security;
         this.expiryDate = expiry;
+        }
     }
 
     public String getCardNumber() {
@@ -76,3 +78,4 @@ public class Card {
         this.expiryDate = expiryDate;
     }
 }
+
