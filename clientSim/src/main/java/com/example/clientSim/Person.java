@@ -2,12 +2,14 @@ package com.example.clientSim;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private String[] addresses = new String[2];
     private String townCity;
     private String postcode;
@@ -20,31 +22,31 @@ public class Person {
 
     public Person(String[] add, String town, String post, String co, String em){
         boolean check = true;
-        if(!PersonController.checkEmptyArray(add)){
+        if(!PersonValidator.checkEmptyArray(add)){
             check = false;
         }
-        if (!PersonController.checkLetter(town) && check){
+        if (!PersonValidator.checkLetter(town) && check){
             check = false;
         }
-        if (!PersonController.checkLetter(co) && check){
+        if (!PersonValidator.checkLetter(co) && check){
             check = false;
         }
-        if (!PersonController.checkLength(post, 7) && check){
+        if (!PersonValidator.checkLength(post, 7) && check){
             check = false;
         }
-        if (!PersonController.checkLimit(town, 100) && check){
+        if (!PersonValidator.checkLimit(town, 100) && check){
             check = false;
         }
-        if (!PersonController.checkLimit(co, 100) && check){
+        if (!PersonValidator.checkLimit(co, 100) && check){
             check = false;
         }
-        if (!PersonController.checkLimit(em, 100) && check){
+        if (!PersonValidator.checkLimit(em, 100) && check){
             check = false;
         }
-        if(!PersonController.checkLimitArray(add, 100) && check){
+        if(!PersonValidator.checkLimitArray(add, 100) && check){
             check = false;
         }
-        if(!PersonController.checkEmail(em) && check){
+        if(!PersonValidator.checkEmail(em) && check){
             check = false;
         }
 
@@ -107,4 +109,5 @@ public class Person {
         this.email = em;
     }
 }
+
 
