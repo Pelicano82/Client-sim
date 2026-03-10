@@ -5,6 +5,9 @@ import java.time.LocalDate;
 public class CardController {
 
     public static boolean checkNumber(String value){
+        if(value == null){
+            return false;
+        }
         boolean check = true;
         for (char i : value.toCharArray()){
             if (i >= '0' && i <= '9'){
@@ -18,6 +21,9 @@ public class CardController {
     }
 
     public static boolean checkLetter(String value){
+        if(value == null){
+            return false;
+        }
         boolean check = true;
         for (char i : value.toCharArray()){
             if (Character.isLetter(i) || i == ' '){
@@ -31,6 +37,9 @@ public class CardController {
     }
 
     public static boolean checkLength (String value, int length) {
+        if(value == null){
+            return false;
+        }
         boolean check = true;
         if (value.length() != length){
             check = false;
@@ -39,6 +48,9 @@ public class CardController {
     }
 
     public static boolean checkLimit (String value, int limit) {
+        if(value == null){
+            return false;
+        }
         boolean check = true;
         if (value.length() >= limit){
             check = false;
@@ -47,6 +59,9 @@ public class CardController {
     }
 
     public static boolean checkDate (LocalDate date){
+        if(date == null){
+            return false;
+        }
         boolean check = true;
         if (!date.isBefore(LocalDate.now())){
             check = false;
@@ -54,3 +69,4 @@ public class CardController {
         return check;
     }
 }
+
