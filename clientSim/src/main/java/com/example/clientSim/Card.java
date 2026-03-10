@@ -16,25 +16,25 @@ public class Card {
     public Card(String number, String holder, String security, LocalDate expiry){
 
         boolean check = true;
-        if(!CardController.checkNumber(number)){
+        if(!CardValidator.checkNumber(number)){
             check = false;
         }
-        if (!CardController.checkNumber(security) && check){
+        if (!CardValidator.checkNumber(security) && check){
             check = false;
         }
-        if (!CardController.checkLetter(holder) && check){
+        if (!CardValidator.checkLetter(holder) && check){
             check = false;
         }
-        if (!CardController.checkLength(number, 16) && check){
+        if (!CardValidator.checkLength(number, 16) && check){
             check = false;
         }
-        if (!CardController.checkLength(security, 3) && check){
+        if (!CardValidator.checkLength(security, 3) && check){
             check = false;
         }
-        if (!CardController.checkLimit(holder, 100) && check){
+        if (!CardValidator.checkLimit(holder, 100) && check){
             check = false;
         }
-        if (!CardController.checkDate(expiry) && check){
+        if (!CardValidator.checkDate(expiry) && check){
             check = false;
         }
 
@@ -78,5 +78,6 @@ public class Card {
         this.expiryDate = expiryDate;
     }
 }
+
 
 
