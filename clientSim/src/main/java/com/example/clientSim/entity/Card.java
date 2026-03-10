@@ -1,6 +1,6 @@
 package com.example.clientSim.entity;
 
-import jakarta.persistence.*;
+import jakarta.*;
 import java.time.LocalDate;
 
 @Entity
