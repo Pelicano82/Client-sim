@@ -1,10 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard – Paying Your Fine</title>
+    <link rel="stylesheet" href="css/finepay.css" />
 </head>
 <body>
 
+<!-- Header / Navigation Bar -->
+<header class="navbar">
+    <div class="navbar__brand">
+        <div class="navbar__logo">
+            <span class="navbar__logo-text">TV</span>
+        </div>
+        <span class="navbar__title">Paying Your Fine</span>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="main">
+    <div class="content-container">
+
+        <!-- Welcome Heading -->
+        <!-- DB field: user.firstName -->
+        <h1 class="welcome-heading">Welcome {{user.firstName}}</h1>
+
+        <!-- Licence Info Cards Row -->
+        <div class="cards-row">
+
+            <!-- Card: TV Licence Registered to -->
+            <div class="card">
+                <div class="card__header">TV Licence Registered to:</div>
+                <div class="card__body">
+                    <p>{{user.fullName}}</p>        <!-- DB field: user.fullName -->
+                    <p>{{user.addressLine1}}</p>    <!-- DB field: user.addressLine1 -->
+                    <p>{{user.city}}</p>            <!-- DB field: user.city -->
+                    <p>{{user.postcode}}</p>        <!-- DB field: user.postcode -->
+                </div>
+            </div>
+
+            <!-- Card: TV Licence Details -->
+            <div class="card">
+                <div class="card__header">TV Licence Details:</div>
+                <div class="card__body">
+                    <div class="detail-row">
+                        <span class="detail-label">TV Licence Number</span>
+                        <span class="detail-value">{{licence.number}}</span>   <!-- DB field: licence.number -->
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">TV Licence Fee</span>
+                        <span class="detail-value">{{licence.fee}}</span>      <!-- DB field: licence.fee -->
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Valid Until</span>
+                        <span class="detail-value">{{licence.validUntil}}</span> <!-- DB field: licence.validUntil -->
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.cards-row -->
+
+        <!-- Options Section -->
+        <h2 class="options-heading">Please Choose an Option Below</h2>
+
+        <div class="radio-group">
+            <label class="radio-label">
+                <input class="radio-input" type="radio" name="licence-option" value="renew" checked />
+                <span class="radio-custom"></span>
+                Renew Licence
+            </label>
+            <label class="radio-label">
+                <input class="radio-input" type="radio" name="licence-option" value="cancel" />
+                <span class="radio-custom"></span>
+                Cancel Licence
+            </label>
+        </div>
+
+        <!-- Fine Amount + Total Row -->
+        <div class="fine-row">
+            <div class="fine-input-group">
+                <label class="fine-label" for="fine-amount">
+                    Please Enter the Amount of the Fine Here:
+                </label>
+                <input
+                        class="fine-input"
+                        type="text"
+                        id="fine-amount"
+                        name="fine-amount"
+                        placeholder="£0.00"
+                />
+            </div>
+
+            <div class="total-group">
+                <span class="total-label">Total To Be Paid:</span>
+                <span class="total-value">{{payment.total}}</span>  <!-- DB field: payment.total -->
+            </div>
+        </div>
+
+        <!-- Proceed to Payment Button -->
+        <div class="form-actions">
+            <button class="btn-proceed" type="button">Proceed to Payment</button>
+        </div>
+
+    </div>
+</main>
 </body>
 </html>
