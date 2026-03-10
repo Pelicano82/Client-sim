@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 
 @Entity
 public class Person {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
     private String[] addresses = new String[2];
     private String townCity;
     private String postcode;
@@ -103,3 +107,4 @@ public class Person {
         this.email = em;
     }
 }
+
