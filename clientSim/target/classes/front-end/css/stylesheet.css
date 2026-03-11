@@ -1,0 +1,124 @@
+/* =========================================
+   Global Reset & Base Styles
+   ========================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  color: #1a1a1a;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================================
+   Navbar
+   ========================================= */
+.navbar {
+  background-color: #1a6b6b; /* deep teal */
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* TV Logo Box */
+.navbar__logo {
+  background-color: #ffffff;
+  color: #1a6b6b;
+  width: 44px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  position: relative;
+}
+
+.navbar__logo::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 3px;
+  background-color: #ffffff;
+  border-radius: 2px;
+}
+
+.navbar__logo-text {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.navbar__title {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+/* =========================================
+   Main Content
+   ========================================= */
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+
+/* =========================================
+   Welcome Heading
+   ========================================= */
+.welcome-heading {
+  font-size: 72px;
+  font-weight: 800;
+  color: #1a6b6b;
+  text-align: center;
+  letter-spacing: -1px;
+}
+
+/* =========================================
+   Get Started Button
+   ========================================= */
+.btn-get-started {
+  background-color: #8ab84a; /* olive/sage green */
+  color: #ffffff;
+  border: none;
+  padding: 18px 80px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-get-started:hover {
+  background-color: #7aa63c;
+}
+
+.btn-get-started:active {
+  transform: scale(0.98);
+  background-color: #6b952f;
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>View Your Licence – Paying Your Fine</title>
+    <link rel="stylesheet" href="css/view-licence.css"/>
+</head>
+<body>
+
+<!-- Header / Navigation Bar -->
+<header class="navbar">
+    <div class="navbar__brand">
+        <div class="navbar__logo">
+            <span class="navbar__logo-text">TV</span>
+        </div>
+        <span class="navbar__title">Paying Your Fine</span>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="main">
+    <div class="form-container">
+
+        <h1 class="form-heading">View your licence</h1>
+        <p class="form-subtext">Fill in your details to get started</p>
+
+        <form method="POST" action="/login">
+            <!-- TV Licence or Customer Number -->
+            <div class="form-group">
+                <label class="form-label" for="licence-number">
+                    TV Licence or Customer Number
+                </label>
+                <input
+                        class="form-input"
+                        type="text"
+                        id="licence-number"
+                        name="licence-number"
+                        autocomplete="off"
+                />
+                <div class="form-hint-right">
+                    <a class="form-link" href="#">Don't know your TV Licence number?</a>
+                </div>
+            </div>
+
+            <!-- Last Name -->
+            <div class="form-group">
+                <label class="form-label" for="last-name">
+                    Last name (as it appears on the TV Licence)
+                </label>
+                <input
+                        class="form-input"
+                        type="text"
+                        id="last-name"
+                        name="last-name"
+                        autocomplete="family-name"
+                />
+            </div>
+
+            <!-- Postcode -->
+            <div class="form-group">
+                <label class="form-label" for="postcode">
+                    Postcode of the licensed address
+                </label>
+                <input
+                        class="form-input"
+                        type="text"
+                        id="postcode"
+                        name="postcode"
+                        autocomplete="postal-code"
+                />
+            </div>
+
+            <!-- Sign In Button -->
+            <div class="form-actions">
+                <button class="btn-sign-in" type="submit">Sign in</button>
+            </div>
+        </form>
+
+    </div>
+</main>
+
+</body>
+</html>
