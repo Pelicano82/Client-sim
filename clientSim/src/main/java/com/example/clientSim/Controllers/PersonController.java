@@ -41,11 +41,15 @@ public class PersonController {
         Optional<Person> person = personservice.getPersonById(id);
         if (person.isPresent()) {
             Person existingPerson = person.get();
-            existingPerson.setAddresses(personDetails.getAddresses());
-            existingPerson.setTownCity(personDetails.getTownCity());
+            existingPerson.setFirstName(personDetails.getFirstName());
+            existingPerson.setLastName(personDetails.getLastName());
+            existingPerson.setFullName(personDetails.getFullName());
+            existingPerson.setAddressLine1(personDetails.getAddressLine1());
+            existingPerson.setCity(personDetails.getCity());
             existingPerson.setPostcode(personDetails.getPostcode());
             existingPerson.setCountry(personDetails.getCountry());
             existingPerson.setEmail(personDetails.getEmail());
+            existingPerson.setPhone(personDetails.getPhone());
             existingPerson.setCard(personDetails.getCard());
             Person updatedPerson = personservice.savePerson(existingPerson);
             return ResponseEntity.ok(updatedPerson);

@@ -25,55 +25,57 @@
         <h1 class="form-heading">View your licence</h1>
         <p class="form-subtext">Fill in your details to get started</p>
 
-        <!-- TV Licence or Customer Number -->
-        <div class="form-group">
-            <label class="form-label" for="licence-number">
-                TV Licence or Customer Number
-            </label>
-            <input
-                    class="form-input"
-                    type="text"
-                    id="licence-number"
-                    name="licence-number"
-                    autocomplete="off"
-            />
-            <div class="form-hint-right">
-                <a class="form-link" href="#">Don't know your TV Licence number?</a>
+        <form method="POST" action="/login">
+            <!-- TV Licence or Customer Number -->
+            <div class="form-group">
+                <label class="form-label" for="licence-number">
+                    TV Licence or Customer Number
+                </label>
+                <input
+                        class="form-input"
+                        type="text"
+                        id="licence-number"
+                        name="licence-number"
+                        autocomplete="off"
+                />
+                <div class="form-hint-right">
+                    <a class="form-link" href="#">Don't know your TV Licence number?</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Last Name -->
-        <div class="form-group">
-            <label class="form-label" for="last-name">
-                Last name (as it appears on the TV Licence)
-            </label>
-            <input
-                    class="form-input"
-                    type="text"
-                    id="last-name"
-                    name="last-name"
-                    autocomplete="family-name"
-            />
-        </div>
+            <!-- Last Name -->
+            <div class="form-group">
+                <label class="form-label" for="last-name">
+                    Last name (as it appears on the TV Licence)
+                </label>
+                <input
+                        class="form-input"
+                        type="text"
+                        id="last-name"
+                        name="last-name"
+                        autocomplete="family-name"
+                />
+            </div>
 
-        <!-- Postcode -->
-        <div class="form-group">
-            <label class="form-label" for="postcode">
-                Postcode of the licensed address
-            </label>
-            <input
-                    class="form-input"
-                    type="text"
-                    id="postcode"
-                    name="postcode"
-                    autocomplete="postal-code"
-            />
-        </div>
+            <!-- Postcode -->
+            <div class="form-group">
+                <label class="form-label" for="postcode">
+                    Postcode of the licensed address
+                </label>
+                <input
+                        class="form-input"
+                        type="text"
+                        id="postcode"
+                        name="postcode"
+                        autocomplete="postal-code"
+                />
+            </div>
 
-        <!-- Sign In Button -->
-        <div class="form-actions">
-            <button class="btn-sign-in" type="button">Sign in</button>
-        </div>
+            <!-- Sign In Button -->
+            <div class="form-actions">
+                <button class="btn-sign-in" type="submit">Sign in</button>
+            </div>
+        </form>
 
     </div>
 </main>

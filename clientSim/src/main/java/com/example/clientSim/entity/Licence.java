@@ -2,37 +2,43 @@ package com.example.clientSim.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.math.BigDecimal;
 
 @Entity
 public class Licence {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String licenceNumber;
-    private double licenceFee;
-    private LocalDate expiryDate;
+    private BigDecimal fee;
+    private LocalDate validUntil;
+    private String status; // ACTIVE, EXPIRED, CANCELLED
+    private Boolean renewed;
 
-    public Licence(String liNo, double liFee, LocalDate exDate){
-        boolean check = true;
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    private Person person;
 
-        if(!LicenceValidator.checkNumber(liNo)){
-            check = false;
-        }
-        if (!LicenceValidator.checkLength(liNo, 10) && check){
-            check = false;
-        }
-        if (!LicenceValidator.checkDecimal(liFee) && check){
-            check = false;
-        }
-        if (!LicenceValidator.checkAmount(liFee) && check){
-            check = false;
-        }
-        if (!LicenceValidator.checkDate(exDate) && check){
-            check = false;
-        }
+    public Licence() {
+    }
 
+    public Licence(String licenceNumber, BigDecimal fee, LocalDate validUntil, Person person) {
+        this.licenceNumber = licenceNumber;
+        this.fee = fee;
+        this.validUntil = validUntil;
+        this.person = person;
+        this.status = "ACTIVE";
+        this.renewed = false;
+    }
 
-        this.licenceNumber = liNo;
-        this.licenceFee = liFee;
-        this.expiryDate = exDate;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getLicenceNumber() {
@@ -43,19 +49,43 @@ public class Licence {
         this.licenceNumber = licenceNumber;
     }
 
-    public double getLicenceFee() {
-        return licenceFee;
+    public BigDecimal getFee() {
+        return fee;
     }
 
-    public void setLicenceFee(double licenceFee) {
-        this.licenceFee = licenceFee;
+    public void setFee(BigDecimal fee) {
+        this.fee = fee;
     }
 
-    public LocalDate getExpiryDate() {
-        return expiryDate;
+    public LocalDate getValidUntil() {
+        return validUntil;
     }
 
-    public void setExpiryDate(LocalDate expiryDate) {
-        this.expiryDate = expiryDate;
+    public void setValidUntil(LocalDate validUntil) {
+        this.validUntil = validUntil;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Boolean getRenewed() {
+        return renewed;
+    }
+
+    public void setRenewed(Boolean renewed) {
+        this.renewed = renewed;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }

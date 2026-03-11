@@ -12,6 +12,7 @@ public class Card {
     private String cardHolder;
     private String securityCode;
     private LocalDate expiryDate;
+    private String cardType;
 
     public Card() {
     }
@@ -79,5 +80,13 @@ public class Card {
 
     public void setExpiryDate(LocalDate expiryDate) {
         this.expiryDate = expiryDate;
+    }
+
+    public String getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
     }
 }

@@ -46,15 +46,15 @@
                 <div class="card__body">
                     <div class="detail-row">
                         <span class="detail-label">TV Licence Number</span>
-                        <span class="detail-value">{{licence.number}}</span>   <!-- DB field: licence.number -->
+                        <span class="detail-value">{{licence.licenceNumber}}</span>
                     </div>
                     <div class="detail-row">
                         <span class="detail-label">TV Licence Fee</span>
-                        <span class="detail-value">{{licence.fee}}</span>      <!-- DB field: licence.fee -->
+                        <span class="detail-value">{{licence.fee}}</span>
                     </div>
                     <div class="detail-row">
                         <span class="detail-label">Valid Until</span>
-                        <span class="detail-value">{{licence.validUntil}}</span> <!-- DB field: licence.validUntil -->
+                        <span class="detail-value">{{licence.validUntil}}</span>
                     </div>
                 </div>
             </div>
@@ -94,13 +94,13 @@
 
             <div class="total-group">
                 <span class="total-label">Total To Be Paid:</span>
-                <span class="total-value">{{payment.total}}</span>  <!-- DB field: payment.total -->
+                <span class="total-value">{{totalFineAmount}}</span>
             </div>
         </div>
 
         <!-- Proceed to Payment Button -->
         <div class="form-actions">
-            <button class="btn-proceed" type="button">Proceed to Payment</button>
+            <a href="/payment" class="btn-proceed">Proceed to Payment</a>
         </div>
 
     </div>
