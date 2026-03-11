@@ -1,6 +1,6 @@
 package com.example.clientSim.entity;
 
-import jakarta.*;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -12,6 +12,9 @@ public class Card {
     private String cardHolder;
     private String securityCode;
     private LocalDate expiryDate;
+
+    public Card() {
+    }
 
     public Card(String number, String holder, String security, LocalDate expiry){
 

@@ -1,0 +1,12 @@
+com\example\clientSim\entity\PersonValidator.class
+com\example\clientSim\Repos\Personrepo.class
+com\example\clientSim\Controllers\CardController.class
+com\example\clientSim\Service\Cardservice.class
+com\example\clientSim\Controllers\PersonController.class
+com\example\clientSim\ClientSimApplication.class
+com\example\clientSim\Controllers\HomeController.class
+com\example\clientSim\Service\Personservice.class
+com\example\clientSim\entity\CardValidator.class
+com\example\clientSim\entity\Person.class
+com\example\clientSim\entity\Card.class
+com\example\clientSim\Repos\Cardrepo.class

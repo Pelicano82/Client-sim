@@ -18,6 +18,9 @@ public class Person {
     @JoinColumn(name = "card_card_number")
     private Card card;
 
+    public Person() {
+    }
+
     public Person(String[] add, String town, String post, String co, String em){
         boolean check = true;
         if(!PersonValidator.checkEmptyArray(add)){
