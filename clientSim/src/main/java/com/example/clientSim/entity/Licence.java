@@ -1,6 +1,9 @@
 package com.example.clientSim.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 import java.math.BigDecimal;
 
@@ -25,7 +28,9 @@ public class Licence {
     }
 
     public Licence(String licenceNumber, BigDecimal fee, LocalDate validUntil, Person person) {
+
         boolean check = true;
+
         if(!LicenceValidator.checkNull(licenceNumber)){
             check = false;
         }

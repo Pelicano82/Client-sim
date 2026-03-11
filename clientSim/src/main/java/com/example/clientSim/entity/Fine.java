@@ -21,11 +21,37 @@ public class Fine {
     public Fine() {
     }
 
-    public Fine(BigDecimal amount, String reason, Licence licence) {
-        this.amount = amount;
-        this.reason = reason;
-        this.licence = licence;
-        this.status = "PENDING";
+    public Fine(BigDecimal amount, String reason, Licence licence, String status) {
+        boolean check = true;
+
+        if(!FineValidator.checkNull(amount)){
+            check = false;
+        }
+        if (!FineValidator.checkNull(reason) && check){
+            check = false;
+        }
+        if (!FineValidator.checkNull(status) && check){
+            check = false;
+        }
+        if (!FineValidator.checkStatus(status) && check){
+            check = false;
+        }
+        if(!FineValidator.checkDecimal(amount) && check){
+            check = false;
+        }
+        if (!FineValidator.checkLimit(reason, 500) && check){
+            check = false;
+        }
+        if (!FineValidator.checkAmount(amount) && check){
+            check = false;
+        }
+
+        if (check) {
+            this.amount = amount;
+            this.reason = reason;
+            this.licence = licence;
+            this.status = status;
+        }
     }
 
     public Long getId() {
