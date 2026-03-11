@@ -59,6 +59,7 @@ public class Card {
             this.cardHolder = holder;
             this.securityCode = security;
             this.expiryDate = expiry;
+            this.cardType = "debit";
         }
     }
 
