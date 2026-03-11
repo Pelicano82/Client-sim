@@ -31,11 +31,9 @@ public class LicenceValidator {
         return check;
     }
 
-    public static boolean checkDecimal(double value) {
+    public static boolean checkDecimal(BigDecimal value) {
         boolean check = true;
-        String st = String.valueOf(value);
-        String[] arr = st.split(".");
-        if(arr.length == 2 && arr[1].length() <= 2){
+        if (value.stripTrailingZeros().scale() == 2){
             check = false;
         }
         return check;
@@ -52,9 +50,11 @@ public class LicenceValidator {
         return check;
     }
 
-    public static boolean checkAmount (double value){
+    public static boolean checkAmount (BigDecimal value){
         boolean check = true;
-        if (value < 0 || value > 100000){
+        BigDecimal bd1 = new BigDecimal("0");
+        BigDecimal bd2 = new BigDecimal("100000");
+        if (value.doubleValue() < bd1.doubleValue() || value.doubleValue() > bd1.doubleValue()){
             check = false;
         }
         return check;

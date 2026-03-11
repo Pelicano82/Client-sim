@@ -26,13 +26,19 @@ public class Licence {
 
     public Licence(String licenceNumber, BigDecimal fee, LocalDate validUntil, Person person) {
         boolean check = true;
-        if(!PersonValidator.checkNumber(licenceNumber)){
+        if(!LicenceValidator.checkNumber(licenceNumber)){
             check = false;
         }
-        if (!PersonValidator.checkLength(licenceNumber, 10) && check){
+        if (!LicenceValidator.checkLength(licenceNumber, 10) && check){
             check = false;
         }
-        if (!PersonValidator.checkLetter(city) && check){
+        if (!LicenceValidator.checkDecimal(fee) && check){
+            check = false;
+        }
+        if (!LicenceValidator.checkDate(validUntil) && check){
+            check = false;
+        }
+        if (!LicenceValidator.checkAmount(fee) && check){
             check = false;
         }
 
