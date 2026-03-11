@@ -27,7 +27,31 @@ public class Person {
 
     public Person(String firstName, String lastName, String addressLine1, String city, String postcode, String country, String email, String phone) {
         boolean check = true;
-        if(!PersonValidator.checkLetter(firstName)){
+        if(!PersonValidator.checkNull(firstName)){
+            check = false;
+        }
+        if (!PersonValidator.checkNull(lastName) && check){
+            check = false;
+        }
+        if (!PersonValidator.checkNull(addressLine1) && check){
+            check = false;
+        }
+        if (!PersonValidator.checkNull(city) && check){
+            check = false;
+        }
+        if(!PersonValidator.checkNull(postcode) && check){
+            check = false;
+        }
+        if (!PersonValidator.checkNull(country) && check){
+            check = false;
+        }
+        if (!PersonValidator.checkNull(email) && check){
+            check = false;
+        }
+        if (!PersonValidator.checkNull(phone) && check){
+            check = false;
+        }
+        if(!PersonValidator.checkLetter(firstName) && check){
             check = false;
         }
         if (!PersonValidator.checkLetter(lastName) && check){

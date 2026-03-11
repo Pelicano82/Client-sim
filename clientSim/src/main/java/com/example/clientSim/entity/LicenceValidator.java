@@ -4,10 +4,32 @@ import java.time.LocalDate;
 import java.math.BigDecimal;
 
 public class LicenceValidator {
-    public static boolean checkNumber(String value){
+
+    public static boolean checkNull(String value){
+        boolean check = true;
         if(value == null){
             return false;
         }
+        return check;
+    }
+
+    public static boolean checkNull(BigDecimal value){
+        boolean check = true;
+        if(value == null){
+            return false;
+        }
+        return check;
+    }
+
+    public static boolean checkNull(LocalDate value){
+        boolean check = true;
+        if(value == null){
+            return false;
+        }
+        return check;
+    }
+
+    public static boolean checkNumber(String value){
         boolean check = true;
         for (char i : value.toCharArray()){
             if (i >= '0' && i <= '9'){
@@ -21,9 +43,6 @@ public class LicenceValidator {
     }
 
     public static boolean checkLength(String value, int length) {
-        if(value == null){
-            return false;
-        }
         boolean check = true;
         if (value.strip().length() != length){
             check = false;
@@ -32,9 +51,6 @@ public class LicenceValidator {
     }
 
     public static boolean checkDecimal(BigDecimal value) {
-        if (value == null){
-            return false;
-        }
         boolean check = true;
         if (value.stripTrailingZeros().scale() == 2){
             check = false;
@@ -43,9 +59,6 @@ public class LicenceValidator {
     }
 
     public static boolean checkDate (LocalDate date){
-        if(date == null){
-            return false;
-        }
         boolean check = true;
         if (!date.isBefore(LocalDate.now())){
             check = false;
