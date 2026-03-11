@@ -221,6 +221,24 @@ body {
   border-color: #8ab84a;
 }
 
+/* Renewal Cost Box */
+.renewal-cost-box {
+  display: inline-block;
+  background-color: #f0f8f0;
+  border: 1px solid #8ab84a;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: #1a6b6b;
+  margin-left: 12px;
+  font-weight: 500;
+}
+
+.renewal-cost-box strong {
+  color: #8ab84a;
+  font-size: 14px;
+}
+
 /* =========================================
    Fine Amount Row
    ========================================= */

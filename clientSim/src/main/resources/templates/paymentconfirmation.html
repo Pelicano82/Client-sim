@@ -26,7 +26,7 @@
     <!-- Reference number -->
     <div class="reference-block">
         <p class="reference-label">Your payment reference number is</p>
-        <p class="reference-number">{{referenceNumber}}</p>
+        <p class="reference-number" th:text="${referenceNumber}">ABC 12345</p>
     </div>
 
     <hr />
@@ -40,9 +40,12 @@
     <!-- Payment Summary -->
     <div class="summary">
         <h3>Payment Summary</h3>
+        <p class="summary-row"><span>Name:</span> <span th:text="${person.fullName}">Customer Name</span></p>
+        <p class="summary-row"><span>Licence Number:</span> <span th:text="${licence.licenceNumber}">1234567890</span></p>
         <p class="summary-row"><span>Payment for:</span> <span>TV Licence fine</span></p>
-        <p class="summary-row"><span>Total amount:</span></p>
-        <div class="amount">£1,174.50</div>
+        <p class="summary-row" th:if="${licenceOption == 'renew'}"><span>Includes:</span> <span>Licence renewal (£159.00)</span></p>
+        <p class="summary-row"><span>Total amount paid:</span></p>
+        <div class="amount" th:text="'£' + ${#numbers.formatDecimal(totalAmount, 1, 2)}">£1,174.50</div>
     </div>
 
     <!-- PDF receipt -->

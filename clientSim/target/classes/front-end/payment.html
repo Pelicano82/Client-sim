@@ -23,7 +23,7 @@
         <h3>Payment Summary</h3>
         <p>You must pay the following</p>
         <p>Total amount:</p>
-        <div class="amount">£1174.50</div>
+        <div class="amount" th:text="'£' + ${#numbers.formatDecimal(totalAmount, 1, 2)}">£1174.50</div>
     </div>
 
     <!-- Card Details -->

@@ -3,9 +3,11 @@ package com.example.clientSim.Controllers;
 import com.example.clientSim.Service.Cardservice;
 import com.example.clientSim.Service.FineService;
 import com.example.clientSim.Service.LicenceService;
+import com.example.clientSim.Service.PaymentService;
 import com.example.clientSim.Service.Personservice;
 import com.example.clientSim.entity.*;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,9 @@ public class HomeController {
 
     @Autowired
     private Cardservice cardService;
+
+    @Autowired
+    private PaymentService paymentService;
 
     // Landing Page
     @GetMapping("/")
@@ -105,30 +110,72 @@ public class HomeController {
         return "finepay";
     }
 
+    // Submit fine amount from finepay page
+    @PostMapping("/finepay-submit")
+    public String submitFineAmount(
+            @RequestParam(name = "fine-amount") String fineAmountStr,
+            @RequestParam(name = "licence-option") String licenceOption,
+            HttpSession session,
+            Model model) {
+        
+        Person person = (Person) session.getAttribute("person");
+        Licence licence = (Licence) session.getAttribute("licence");
+        List<Fine> fines = (List<Fine>) session.getAttribute("fines");
+        
+        if (person == null || licence == null || fines == null) {
+            return "redirect:/login";
+        }
+        
+        try {
+            // Parse the fine amount entered by user
+            BigDecimal userFineAmount = new BigDecimal(fineAmountStr.replace("£", "").trim());
+            
+            // Update the fine amount in the database
+            if (!fines.isEmpty()) {
+                for (Fine fine : fines) {
+                    if (fine.getStatus().equals("PENDING")) {
+                        fine.setAmount(userFineAmount);
+                        fineService.saveFine(fine);
+                    }
+                }
+            }
+            
+            // Calculate total: fine + renewal cost if renewing
+            BigDecimal totalToPay = userFineAmount;
+            if ("renew".equals(licenceOption)) {
+                totalToPay = totalToPay.add(new BigDecimal("159.00"));
+            }
+            
+            // Store licence option and total in session for payment processing
+            session.setAttribute("licenceOption", licenceOption);
+            session.setAttribute("totalToPay", totalToPay);
+            
+            return "redirect:/payment";
+        } catch (Exception e) {
+            model.addAttribute("error", "Invalid fine amount: " + e.getMessage());
+            return "finepay";
+        }
+    }
+
     // Payment Page
     @GetMapping("/payment")
     public String payment(HttpSession session, Model model) {
         Person person = (Person) session.getAttribute("person");
         Licence licence = (Licence) session.getAttribute("licence");
-        List<Fine> fines = (List<Fine>) session.getAttribute("fines");
+        BigDecimal totalToPay = (BigDecimal) session.getAttribute("totalToPay");
         
         if (person == null || licence == null) {
             return "redirect:/login";
         }
         
-        // Calculate total amount to pay
-        BigDecimal totalAmount = BigDecimal.ZERO;
-        if (fines != null) {
-            for (Fine fine : fines) {
-                if (fine.getStatus().equals("PENDING")) {
-                    totalAmount = totalAmount.add(fine.getAmount());
-                }
-            }
+        // Use the pre-calculated total from finepay submission
+        if (totalToPay == null) {
+            totalToPay = BigDecimal.ZERO;
         }
         
         model.addAttribute("user", person);
         model.addAttribute("licence", licence);
-        model.addAttribute("totalAmount", totalAmount);
+        model.addAttribute("totalAmount", totalToPay);
         
         return "payment";
     }
@@ -141,12 +188,15 @@ public class HomeController {
             @RequestParam(name = "exp-month") String expMonth,
             @RequestParam(name = "exp-year") String expYear,
             @RequestParam(name = "cvv") String cvv,
+            @RequestParam(name = "address1") String address1,
             HttpSession session,
             Model model) {
         
         Person person = (Person) session.getAttribute("person");
         Licence licence = (Licence) session.getAttribute("licence");
         List<Fine> fines = (List<Fine>) session.getAttribute("fines");
+        BigDecimal totalToPay = (BigDecimal) session.getAttribute("totalToPay");
+        String licenceOption = (String) session.getAttribute("licenceOption");
         
         if (person == null || licence == null) {
             return "redirect:/login";
@@ -162,17 +212,30 @@ public class HomeController {
             Card savedCard = cardService.saveCard(card);
             
             // Create payment record for each fine
-            BigDecimal totalAmount = BigDecimal.ZERO;
-            for (Fine fine : fines) {
-                if (fine.getStatus().equals("PENDING")) {
-                    totalAmount = totalAmount.add(fine.getAmount());
-                    fine.setStatus("PAID");
-                    fineService.saveFine(fine);
+            if (fines != null && !fines.isEmpty()) {
+                for (Fine fine : fines) {
+                    if (fine.getStatus().equals("PENDING")) {
+                        // Create payment record
+                        Payment payment = new Payment();
+                        payment.setAmount(fine.getAmount());
+                        payment.setPerson(person);
+                        payment.setFine(fine);
+                        payment.setCard(savedCard);
+                        payment.setStatus("SUCCESS");
+                        payment.setPaymentMethod("CARD");
+                        Payment savedPayment = paymentService.savePayment(payment);
+                        
+                        // Update fine status to PAID
+                        fine.setStatus("PAID");
+                        fineService.saveFine(fine);
+                    }
                 }
             }
             
-            // Mark licence as renewed
-            licence.setRenewed(true);
+            // Mark licence as renewed if applicable
+            if ("renew".equals(licenceOption)) {
+                licence.setRenewed(true);
+            }
             licence.setStatus("ACTIVE");
             licenceService.saveLicence(licence);
             
@@ -180,10 +243,18 @@ public class HomeController {
             person.setCard(savedCard);
             personService.savePerson(person);
             
-            // Clear session
+            // Store data in session for confirmation page (BEFORE clearing)
+            session.setAttribute("paymentPerson", person);
+            session.setAttribute("paymentLicence", licence);
+            session.setAttribute("paymentTotalAmount", totalToPay);
+            session.setAttribute("paymentLicenceOption", licenceOption);
+            
+            // Clear old session attributes
             session.removeAttribute("person");
             session.removeAttribute("licence");
             session.removeAttribute("fines");
+            session.removeAttribute("licenceOption");
+            session.removeAttribute("totalToPay");
             
             return "redirect:/paymentconfirmation";
             
@@ -195,10 +266,27 @@ public class HomeController {
 
     // Payment Confirmation Page
     @GetMapping("/paymentconfirmation")
-    public String paymentconfirmation(Model model) {
+    public String paymentconfirmation(HttpSession session, Model model) {
+        // Retrieve persisted data from session
+        Person person = (Person) session.getAttribute("paymentPerson");
+        Licence licence = (Licence) session.getAttribute("paymentLicence");
+        BigDecimal totalAmount = (BigDecimal) session.getAttribute("paymentTotalAmount");
+        String licenceOption = (String) session.getAttribute("paymentLicenceOption");
+        
+        if (person == null || licence == null) {
+            return "redirect:/login";
+        }
+        
         // Generate a reference number for display
         String referenceNumber = generateReferenceNumber();
+        
+        // Add to model
+        model.addAttribute("person", person);
+        model.addAttribute("licence", licence);
         model.addAttribute("referenceNumber", referenceNumber);
+        model.addAttribute("totalAmount", totalAmount);
+        model.addAttribute("licenceOption", licenceOption);
+        
         return "paymentconfirmation";
     }
 
