@@ -32,6 +32,9 @@ public class LicenceValidator {
     }
 
     public static boolean checkDecimal(BigDecimal value) {
+        if (value == null){
+            return false;
+        }
         boolean check = true;
         if (value.stripTrailingZeros().scale() == 2){
             check = false;
