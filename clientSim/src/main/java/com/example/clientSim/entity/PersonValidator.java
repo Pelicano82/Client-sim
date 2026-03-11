@@ -19,6 +19,22 @@ public class PersonValidator {
         return check;
     }
 
+    public static boolean checkNumber(String value){
+        if(value == null){
+            return false;
+        }
+        boolean check = true;
+        for (char i : value.toCharArray()){
+            if (i >= '0' && i <= '9'){
+                continue;
+            } else {
+                check = false;
+                break;
+            }
+        }
+        return check;
+    }
+
     public static boolean checkLength (String value, int length) {
         if(value == null){
             return false;
@@ -41,38 +57,6 @@ public class PersonValidator {
         return check;
     }
 
-    public static boolean checkDate (LocalDate date){
-        if(date == null){
-            return false;
-        }
-        boolean check = true;
-        if (!date.isBefore(LocalDate.now())){
-            check = false;
-        }
-        return check;
-    }
-
-    public static boolean checkEmptyArray (String[] value) {
-        boolean check = true;
-        if (value == null || value[0] == null){
-            check = false;
-        }
-        return check;
-    }
-
-    public static boolean checkLimitArray (String[] value, int limit) {
-        if(value == null){
-            return false;
-        }
-        boolean check = true;
-        for (String s : value){
-            if(s.length() >= limit){
-                check = false;
-                break;
-            }
-        }
-        return check;
-    }
 
     public static boolean checkEmail(String em){
         if(em == null){

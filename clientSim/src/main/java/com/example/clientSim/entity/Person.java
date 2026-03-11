@@ -26,15 +26,58 @@ public class Person {
     }
 
     public Person(String firstName, String lastName, String addressLine1, String city, String postcode, String country, String email, String phone) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.fullName = firstName + " " + lastName;
-        this.addressLine1 = addressLine1;
-        this.city = city;
-        this.postcode = postcode;
-        this.country = country;
-        this.email = email;
-        this.phone = phone;
+        boolean check = true;
+        if(!PersonValidator.checkLetter(firstName)){
+            check = false;
+        }
+        if (!PersonValidator.checkLetter(lastName) && check){
+            check = false;
+        }
+        if (!PersonValidator.checkLetter(city) && check){
+            check = false;
+        }
+        if (!PersonValidator.checkLetter(country) && check){
+            check = false;
+        }
+        if (!PersonValidator.checkNumber(phone) && check){
+            check = false;
+        }
+        if (!PersonValidator.checkLength(postcode, 7) && check){
+            check = false;
+        }
+        if (!PersonValidator.checkLimit(firstName, 50) && check){
+            check = false;
+        }
+        if (!PersonValidator.checkLimit(lastName, 50) && check){
+            check = false;
+        }
+        if (!PersonValidator.checkLimit(addressLine1, 200) && check){
+            check = false;
+        }
+        if (!PersonValidator.checkLimit(city, 50) && check){
+            check = false;
+        }
+        if (!PersonValidator.checkLimit(country, 50) && check){
+            check = false;
+        }
+        if (!PersonValidator.checkLimit(email, 100) && check){
+            check = false;
+        }
+        if (!PersonValidator.checkEmail(email) && check){
+            check = false;
+        }
+
+        if (check) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.fullName = firstName + " " + lastName;
+            this.addressLine1 = addressLine1;
+            this.city = city;
+            this.postcode = postcode;
+            this.country = country;
+            this.email = email;
+            this.phone = phone;
+        }
     }
 
 

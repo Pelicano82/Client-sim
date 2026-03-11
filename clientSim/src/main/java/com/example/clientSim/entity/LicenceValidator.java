@@ -1,6 +1,7 @@
 package com.example.clientSim.entity;
 
 import java.time.LocalDate;
+import java.math.BigDecimal;
 
 public class LicenceValidator {
     public static boolean checkNumber(String value){

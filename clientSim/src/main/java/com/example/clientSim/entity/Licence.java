@@ -25,12 +25,25 @@ public class Licence {
     }
 
     public Licence(String licenceNumber, BigDecimal fee, LocalDate validUntil, Person person) {
-        this.licenceNumber = licenceNumber;
-        this.fee = fee;
-        this.validUntil = validUntil;
-        this.person = person;
-        this.status = "ACTIVE";
-        this.renewed = false;
+        boolean check = true;
+        if(!PersonValidator.checkNumber(licenceNumber)){
+            check = false;
+        }
+        if (!PersonValidator.checkLength(licenceNumber, 10) && check){
+            check = false;
+        }
+        if (!PersonValidator.checkLetter(city) && check){
+            check = false;
+        }
+
+        if (check) {
+            this.licenceNumber = licenceNumber;
+            this.fee = fee;
+            this.validUntil = validUntil;
+            this.person = person;
+            this.status = "ACTIVE";
+            this.renewed = false;
+        }
     }
 
     public Long getId() {
