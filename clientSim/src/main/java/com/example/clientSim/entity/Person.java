@@ -39,7 +39,7 @@ public class Person {
         if (!PersonValidator.checkNull(city) && check){
             check = false;
         }
-        if(!PersonValidator.checkNull(postcode)){
+        if(!PersonValidator.checkNull(postcode) && check){
             check = false;
         }
         if (!PersonValidator.checkNull(country) && check){
@@ -51,7 +51,7 @@ public class Person {
         if (!PersonValidator.checkNull(phone) && check){
             check = false;
         }
-        if(!PersonValidator.checkLetter(firstName)){
+        if(!PersonValidator.checkLetter(firstName) && check){
             check = false;
         }
         if (!PersonValidator.checkLetter(lastName) && check){

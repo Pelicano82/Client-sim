@@ -3,10 +3,24 @@ package com.example.clientSim.entity;
 import java.time.LocalDate;
 
 public class CardValidator {
-    public static boolean checkNumber(String value){
-        if(value == null){
+
+    public static boolean checkNull(String value) {
+        boolean check = true;
+        if (value == null) {
             return false;
         }
+        return check;
+    }
+
+    public static boolean checkNull(LocalDate value) {
+        boolean check = true;
+        if (value == null) {
+            return false;
+        }
+        return check;
+    }
+
+    public static boolean checkNumber(String value){
         boolean check = true;
         for (char i : value.toCharArray()){
             if (i >= '0' && i <= '9'){
@@ -20,9 +34,6 @@ public class CardValidator {
     }
 
     public static boolean checkLetter(String value){
-        if(value == null){
-            return false;
-        }
         boolean check = true;
         for (char i : value.toCharArray()){
             if (Character.isLetter(i) || i == ' '){
@@ -36,9 +47,6 @@ public class CardValidator {
     }
 
     public static boolean checkLength (String value, int length) {
-        if(value == null){
-            return false;
-        }
         boolean check = true;
         if (value.strip().length() != length){
             check = false;
@@ -47,9 +55,6 @@ public class CardValidator {
     }
 
     public static boolean checkLimit (String value, int limit) {
-        if(value == null){
-            return false;
-        }
         boolean check = true;
         if (value.strip().length() >= limit){
             check = false;
@@ -58,9 +63,6 @@ public class CardValidator {
     }
 
     public static boolean checkDate (LocalDate date){
-        if(date == null){
-            return false;
-        }
         boolean check = true;
         if (!date.isBefore(LocalDate.now())){
             check = false;

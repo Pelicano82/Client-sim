@@ -20,7 +20,19 @@ public class Card {
     public Card(String number, String holder, String security, LocalDate expiry){
 
         boolean check = true;
-        if(!CardValidator.checkNumber(number)){
+        if(!CardValidator.checkNull(number)){
+            check = false;
+        }
+        if (!CardValidator.checkNull(security) && check){
+            check = false;
+        }
+        if (!CardValidator.checkNull(holder) && check){
+            check = false;
+        }
+        if (!CardValidator.checkNull(expiry) && check){
+            check = false;
+        }
+        if(!CardValidator.checkNumber(number) && check){
             check = false;
         }
         if (!CardValidator.checkNumber(security) && check){
