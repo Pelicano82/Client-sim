@@ -40,7 +40,7 @@ public class CardValidator {
             return false;
         }
         boolean check = true;
-        if (value.length() != length){
+        if (value.strip().length() != length){
             check = false;
         }
         return check;
@@ -51,7 +51,7 @@ public class CardValidator {
             return false;
         }
         boolean check = true;
-        if (value.length() >= limit){
+        if (value.strip().length() >= limit){
             check = false;
         }
         return check;

@@ -25,7 +25,7 @@ public class LicenceValidator {
             return false;
         }
         boolean check = true;
-        if (value.length() != length){
+        if (value.strip().length() != length){
             check = false;
         }
         return check;
