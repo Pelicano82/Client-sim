@@ -6,11 +6,14 @@ import com.example.clientSim.Service.LicenceService;
 import com.example.clientSim.Service.PaymentService;
 import com.example.clientSim.Service.Personservice;
 import com.example.clientSim.entity.*;
+import com.example.clientSim.DTO.PaymentForm;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -176,6 +179,7 @@ public class HomeController {
         model.addAttribute("user", person);
         model.addAttribute("licence", licence);
         model.addAttribute("totalAmount", totalToPay);
+        model.addAttribute("paymentForm", new PaymentForm());
         
         return "payment";
     }
@@ -183,12 +187,8 @@ public class HomeController {
     // Process Payment
     @PostMapping("/payment-process")
     public String processPayment(
-            @RequestParam(name = "card-number") String cardNumber,
-            @RequestParam(name = "name-on-card") String cardHolder,
-            @RequestParam(name = "exp-month") String expMonth,
-            @RequestParam(name = "exp-year") String expYear,
-            @RequestParam(name = "cvv") String cvv,
-            @RequestParam(name = "address1") String address1,
+            @Valid PaymentForm paymentForm,
+            BindingResult bindingResult,
             HttpSession session,
             Model model) {
         
@@ -198,6 +198,13 @@ public class HomeController {
         BigDecimal totalToPay = (BigDecimal) session.getAttribute("totalToPay");
         String licenceOption = (String) session.getAttribute("licenceOption");
         
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", person);
+            model.addAttribute("licence", licence);
+            model.addAttribute("totalAmount", totalToPay);
+            return "payment";
+        }
+        
         if (person == null || licence == null) {
             return "redirect:/login";
         }
@@ -205,9 +212,9 @@ public class HomeController {
         try {
             // Create or update card
             Card card = new Card();
-            card.setCardNumber(cardNumber);
-            card.setCardHolder(cardHolder);
-            card.setSecurityCode(cvv);
+            card.setCardNumber(paymentForm.getCardNumber());
+            card.setCardHolder(paymentForm.getNameOnCard());
+            card.setSecurityCode(paymentForm.getCvv());
             card.setCardType("CREDIT");
             Card savedCard = cardService.saveCard(card);
             
