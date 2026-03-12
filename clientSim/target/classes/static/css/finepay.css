@@ -110,7 +110,7 @@ body {
 }
 
 .card__header {
-  background-color: #8ab84a;
+  background-color: #00bf7d;
   color: #ffffff;
   font-size: 15px;
   font-weight: 700;
@@ -195,7 +195,7 @@ body {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  border: 2px solid #8ab84a;
+  border: 2px solid #00bf7d;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -208,7 +208,7 @@ body {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #8ab84a;
+  background-color: #00bf7d;
   opacity: 0;
   transition: opacity 0.2s ease;
 }
@@ -225,7 +225,7 @@ body {
 .renewal-cost-box {
   display: inline-block;
   background-color: #f0f8f0;
-  border: 1px solid #8ab84a;
+  border: 1px solid #00bf7d;
   border-radius: 4px;
   padding: 6px 12px;
   font-size: 13px;
@@ -235,7 +235,7 @@ body {
 }
 
 .renewal-cost-box strong {
-  color: #8ab84a;
+  color: #00bf7d;
   font-size: 14px;
 }
 
@@ -314,7 +314,7 @@ body {
 }
 
 .btn-proceed {
-  background-color: #8ab84a;
+  background-color: #00bf7d;
   color: #ffffff;
   border: none;
   padding: 16px 36px;
@@ -327,10 +327,10 @@ body {
 }
 
 .btn-proceed:hover {
-  background-color: #7aa63c;
+  background-color: #00bf7d;
 }
 
 .btn-proceed:active {
   transform: scale(0.98);
-  background-color: #6b952f;
+  background-color: #0a8a30;
 }
