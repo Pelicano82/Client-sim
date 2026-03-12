@@ -1,12 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Paying Your Fine</title>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="css/payment.css" />
-
+    <style>
+        .error-message {
+            color: #d32f2f;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+        .has-error {
+            border-color: #d32f2f !important;
+            background-color: #ffebee !important;
+        }
+    </style>
 </head>
 <body>
 
@@ -18,7 +29,7 @@
 <main>
     <h2>Enter Payment Details</h2>
 
-    <form method="POST" action="/payment-process">
+    <form method="POST" action="/payment-process" th:object="${paymentForm}">
         <!-- Payment Summary -->
         <div class="summary">
             <h3>Payment Summary</h3>
@@ -31,7 +42,7 @@
         <p class="section-title">Enter card details</p>
 
         <div class="field">
-            <label for="card-number">Card number</label>
+            <label for="cardNumber">Card number</label>
             <p class="hint">Accepted credit and debit card types</p>
             <div class="card-logos">
                 <span class="card-logo visa">VISA</span>
@@ -43,12 +54,14 @@
                 <span class="card-logo maestro">Maestro</span>
                 <span class="card-logo unionpay">UP</span>
             </div>
-            <input type="text" id="card-number" name="card-number" autocomplete="cc-number" maxlength="19" placeholder="" />
+            <input type="text" id="cardNumber" th:field="*{cardNumber}" th:classappend="${#fields.hasErrors('cardNumber')} ? 'has-error'" autocomplete="cc-number" maxlength="19" placeholder="" />
+            <span th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}" class="error-message"></span>
         </div>
 
         <div class="field">
-            <label for="name-on-card">Name on card</label>
-            <input type="text" id="name-on-card" name="name-on-card" autocomplete="cc-name" />
+            <label for="nameOnCard">Name on card</label>
+            <input type="text" id="nameOnCard" th:field="*{nameOnCard}" th:classappend="${#fields.hasErrors('nameOnCard')} ? 'has-error'" autocomplete="cc-name" />
+            <span th:if="${#fields.hasErrors('nameOnCard')}" th:errors="*{nameOnCard}" class="error-message"></span>
         </div>
 
         <div class="field">
@@ -56,13 +69,15 @@
             <p class="hint">For example, 10/24</p>
             <div class="expiry-row">
                 <div class="field-group">
-                    <label for="exp-month">Month</label>
-                    <input type="text" id="exp-month" name="exp-month" class="narrow" maxlength="2" autocomplete="cc-exp-month" />
+                    <label for="expMonth">Month</label>
+                    <input type="text" id="expMonth" th:field="*{expMonth}" th:classappend="${#fields.hasErrors('expMonth')} ? 'has-error'" class="narrow" maxlength="2" autocomplete="cc-exp-month" />
+                    <span th:if="${#fields.hasErrors('expMonth')}" th:errors="*{expMonth}" class="error-message"></span>
                 </div>
                 <span class="expiry-sep">/</span>
                 <div class="field-group">
-                    <label for="exp-year">Year</label>
-                    <input type="text" id="exp-year" name="exp-year" class="narrow" maxlength="2" autocomplete="cc-exp-year" />
+                    <label for="expYear">Year</label>
+                    <input type="text" id="expYear" th:field="*{expYear}" th:classappend="${#fields.hasErrors('expYear')} ? 'has-error'" class="narrow" maxlength="2" autocomplete="cc-exp-year" />
+                    <span th:if="${#fields.hasErrors('expYear')}" th:errors="*{expYear}" class="error-message"></span>
                 </div>
             </div>
         </div>
@@ -71,9 +86,10 @@
             <label for="cvv">Card Security Code</label>
             <p class="hint">The last 3 digits on the back of the card</p>
             <div class="cvv-row">
-                <input type="text" id="cvv" name="cvv" maxlength="4" autocomplete="cc-csc" />
+                <input type="text" id="cvv" th:field="*{cvv}" th:classappend="${#fields.hasErrors('cvv')} ? 'has-error'" maxlength="4" autocomplete="cc-csc" />
                 <div class="cvv-img">CVV</div>
             </div>
+            <span th:if="${#fields.hasErrors('cvv')}" th:errors="*{cvv}" class="error-message"></span>
         </div>
 
         <hr />
@@ -84,27 +100,31 @@
 
         <div class="field">
             <label for="address1">Address line 1</label>
-            <input type="text" id="address1" name="address1" autocomplete="address-line1" />
+            <input type="text" id="address1" th:field="*{address1}" th:classappend="${#fields.hasErrors('address1')} ? 'has-error'" autocomplete="address-line1" />
+            <span th:if="${#fields.hasErrors('address1')}" th:errors="*{address1}" class="error-message"></span>
         </div>
 
         <div class="field">
             <label for="address2">Address line 2 (optional)</label>
-            <input type="text" id="address2" name="address2" autocomplete="address-line2" />
+            <input type="text" id="address2" th:field="*{address2}" autocomplete="address-line2" />
         </div>
 
         <div class="field">
             <label for="city">Town or city</label>
-            <input type="text" id="city" name="city" autocomplete="address-level2" />
+            <input type="text" id="city" th:field="*{city}" th:classappend="${#fields.hasErrors('city')} ? 'has-error'" autocomplete="address-level2" />
+            <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="error-message"></span>
         </div>
 
         <div class="field">
             <label for="postcode">Postcode</label>
-            <input type="text" id="postcode" name="postcode" class="postcode" autocomplete="postal-code" />
+            <input type="text" id="postcode" th:field="*{postcode}" th:classappend="${#fields.hasErrors('postcode')} ? 'has-error'" class="postcode" autocomplete="postal-code" />
+            <span th:if="${#fields.hasErrors('postcode')}" th:errors="*{postcode}" class="error-message"></span>
         </div>
 
         <div class="field">
             <label for="country">Country or territory</label>
-            <input type="text" id="country" name="country" autocomplete="country-name" />
+            <input type="text" id="country" th:field="*{country}" th:classappend="${#fields.hasErrors('country')} ? 'has-error'" autocomplete="country-name" />
+            <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}" class="error-message"></span>
         </div>
 
         <hr />
@@ -115,7 +135,8 @@
         <div class="field">
             <label for="email">Email address</label>
             <p class="hint">We'll send your payment confirmation here</p>
-            <input type="email" id="email" name="email" autocomplete="email" />
+            <input type="email" id="email" th:field="*{email}" th:classappend="${#fields.hasErrors('email')} ? 'has-error'" autocomplete="email" />
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></span>
         </div>
 
         <!-- Actions -->
