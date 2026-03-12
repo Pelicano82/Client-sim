@@ -102,7 +102,7 @@ body {
    Get Started Button
    ========================================= */
 .btn-get-started {
-  background-color: #8ab84a; /* olive/sage green */
+  background-color: #0e8a00; 
   color: #ffffff;
   border: none;
   padding: 18px 80px;
@@ -115,10 +115,10 @@ body {
 }
 
 .btn-get-started:hover {
-  background-color: #7aa63c;
+  background-color: #0e8a00;
 }
 
 .btn-get-started:active {
   transform: scale(0.98);
-  background-color: #6b952f;
+  background-color: #0e8a00;
 }

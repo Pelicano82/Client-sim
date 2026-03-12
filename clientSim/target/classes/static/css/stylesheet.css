@@ -102,7 +102,7 @@ body {
    Get Started Button
    ========================================= */
 .btn-get-started {
-  background-color: #00bf7d; 
+  background-color: #0e8a00; 
   color: #ffffff;
   border: none;
   padding: 18px 80px;
@@ -120,5 +120,5 @@ body {
 
 .btn-get-started:active {
   transform: scale(0.98);
-  background-color: #00bf7d;
+  background-color: #0e8a00;
 }

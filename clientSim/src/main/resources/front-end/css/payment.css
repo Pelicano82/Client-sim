@@ -231,7 +231,7 @@ input.postcode { width: 160px; }
 }
 
 .btn-continue {
-  background: #85a617;
+  background: #0e8a00;
   color: #fff;
   border: none;
   padding: 10px 22px;
@@ -242,7 +242,7 @@ input.postcode { width: 160px; }
   transition: background 0.15s;
 }
 
-.btn-continue:hover { background: #6e8c13; }
+.btn-continue:hover { background: #0e8a00; }
 
 .btn-cancel {
   background: none;
