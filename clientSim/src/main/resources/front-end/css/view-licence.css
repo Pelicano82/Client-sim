@@ -160,7 +160,7 @@ body {
 }
 
 .btn-sign-in {
-  background-color: #8ab84a;
+  background-color: #0e8a00;
   color: #ffffff;
   border: none;
   padding: 16px 48px;
@@ -178,5 +178,5 @@ body {
 
 .btn-sign-in:active {
   transform: scale(0.98);
-  background-color: #6b952f;
+  background-color: #0e8a00;
 }
